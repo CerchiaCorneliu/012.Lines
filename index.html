@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Canvas Animation</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		canvas p {
+			color: red;
+		}
+
+	</style>
+</head>
+<body>
+	<canvas id="canvas">
+		<p>Sorry Your Browser Not Support Canvas</p>
+	</canvas>
+	<script>
+		var canvas,ctx, 
+			x1,y1,x2,y2,
+			xv1,yv1,xv2,yv2,
+			x1b,y1b,x2b,y2b,
+			xv1b,yv1b,xv2b,yv2b
+
+		window.onload = function() {
+			canvas = document.getElementById("canvas");
+			ctx = canvas.getContext("2d");
+			canvas.width = window.innerWidth-5;
+			canvas.height = window.innerHeight-5;
+			ctx.fillRect(0,0,canvas.width,canvas.height);
+			SetUpSystem();
+			setInterval(update,1000/30);
+		}
+
+		function update() {
+			x1+=xv1;
+			y1+=yv1;
+			x2+=xv2;
+			y2+=yv2;
+			x1b+=xv1b;
+			y1b+=yv1b;
+			x2b+=xv2b;
+			y2b+=yv2b;
+
+			if(x1<0 || x1>canvas.width) {
+				xv1*=-1;
+			}
+			if(y1<0 || y1>canvas.height) {
+				yv1*=-1;
+			}
+			if(x2<0 || x2>canvas.width) {
+				xv2*=-1;
+			}
+			if(y2<0 || x1>canvas.height) {
+				yv2*=-1;
+			}
+
+			if(x1b<0 || x1b>canvas.width) {
+				xv1b*=-1;
+			}
+			if(y1b<0 || y1b>canvas.height) {
+				yv1b*=-1;
+			}
+			if(x2b<0 || x2b>canvas.width) {
+				xv2b*=-1;
+			}
+			if(y2b<0 || y2b>canvas.height) {
+				yv2b*=-1;
+			}
+
+			ctx.fillStyle="#000";
+			ctx.globalAlpha=0.09;
+			ctx.fillRect(0,0,canvas.width,canvas.height);
+			ctx.globalAlpha=0.9;
+
+			ctx.strokeStyle="green";
+			ctx.beginPath();
+			ctx.moveTo(x1, y1);
+			ctx.lineTo(x2, y2);
+			ctx.stroke();
+			ctx.closePath();
+
+			ctx.strokeStyle="cyan";
+			ctx.beginPath();
+			ctx.moveTo(x1b, y1b);
+			ctx.lineTo(x2b, y2b);
+			ctx.stroke();
+			ctx.closePath();
+		}
+
+		function SetUpSystem() {
+			x1 = Math.random() * canvas.width;
+			y1 = Math.random() * canvas.height;
+			x2 = Math.random() * canvas.width;
+			y2 = Math.random() * canvas.height;
+
+			x1b = Math.random() * canvas.width;
+			y1b = Math.random() * canvas.height;
+			x2b = Math.random() * canvas.width;
+			y2b = Math.random() * canvas.height;
+
+			xv1 = 5-Math.random() * 10;
+			yv1 = 5-Math.random() * 10;
+			xv2 = 5-Math.random() * 10;
+			yv2 = 5-Math.random() * 10;	
+
+			xv1b = 5-Math.random() * 10;
+			yv1b = 5-Math.random() * 10;
+			xv2b = 5-Math.random() * 10;
+			yv2b = 5-Math.random() * 10;
+		}
+	</script>
+</body>
+</html>
